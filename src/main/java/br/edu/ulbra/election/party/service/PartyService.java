@@ -94,8 +94,26 @@ public class PartyService {
         if (StringUtils.isBlank(partyInput.getName())){
             throw new GenericOutputException("Invalid name");
         }
+
+        Party party = partyRepository.findByCode(partyInput.getCode()).orElse(null);
+        if (party != null){
+            throw new GenericOutputException("Duplicated party code");
+        }
+
+        if (partyInput.getNumber() >= 100 || party.getNumber() < 10) {
+            throw new GenericOutputException("Invalid party Number");
+        }
+        party = partyRepository.findByNumber(partyInput.getNumber()).orElse(null);
+        if (party != null){
+            throw new GenericOutputException("Duplicated party number");
+        }
+
         if (StringUtils.isBlank(partyInput.getCode())){
             throw new GenericOutputException("Invalid code");
+        }
+
+        if (partyInput.getName().length() < 5) {
+            throw new GenericOutputException("Invalid name");
         }
     }
 
