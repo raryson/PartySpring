@@ -100,7 +100,7 @@ public class PartyService {
             throw new GenericOutputException("Duplicated party code");
         }
 
-        if (partyInput.getNumber() >= 100 || party.getNumber() < 10) {
+        if (partyInput.getNumber() >= 100 || partyInput.getNumber() < 10) {
             throw new GenericOutputException("Invalid party Number");
         }
         party = partyRepository.findByNumber(partyInput.getNumber()).orElse(null);
